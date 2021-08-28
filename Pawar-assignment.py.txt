@@ -1,0 +1,123 @@
+# Shrikant Pawar, Aug 28 2021
+# Task 1
+# Function to count relative frequency of amino acids will be as follows:
+
+def get_codon_for_amino_acids(amino_acids):
+	amino_acids = [amino_acids[i:i+3] for i in range(0,len(amino_acids), 3)]
+	print amino_acids
+    pass
+
+# To count relative frequency of amino acids using defaultdict will be as follows:
+
+from collections import defaultdict
+mydict = defaultdict(int)
+for aa in amino_acids:
+    mydict[aa] +=1
+
+
+# Task 2a
+# Function to count relative frequency of amino acids and returning codons with only 100% efficiency will be as follows: To calculate the frecuency from the defaultdict we can get the counts for each codon, then for each codon calculate the sum of the counts of the translation_table codons read from the dictionary of codons. Task 2b can be answered using actual frequency number.
+
+translation_table = {'TTT': 'F', 'TCT': 'S', 'TAT': 'Y', 'TGT': 'C',
+                     'TTC': 'F', 'TCC': 'S', 'TAC': 'Y', 'TGC': 'C',
+                     'TTA': 'L', 'TCA': 'S', 'TAA': '*', 'TGA': '*',
+                     'TTG': 'L', 'TCG': 'S', 'TAG': '*', 'TGG': 'W',
+                     'CTT': 'L', 'CCT': 'P', 'CAT': 'H', 'CGT': 'R',
+                     'CTC': 'L', 'CCC': 'P', 'CAC': 'H', 'CGC': 'R',
+                     'CTA': 'L', 'CCA': 'P', 'CAA': 'Q', 'CGA': 'R',
+                     'CTG': 'L', 'CCG': 'P', 'CAG': 'Q', 'CGG': 'R',
+                     'ATT': 'I', 'ACT': 'T', 'AAT': 'N', 'AGT': 'S',
+                     'ATC': 'I', 'ACC': 'T', 'AAC': 'N', 'AGC': 'S',
+                     'ATA': 'I', 'ACA': 'T', 'AAA': 'K', 'AGA': 'R',
+                     'ATG': 'M', 'ACG': 'T', 'AAG': 'K', 'AGG': 'R',
+                     'GTT': 'V', 'GCT': 'A', 'GAT': 'D', 'GGT': 'G',
+                     'GTC': 'V', 'GCC': 'A', 'GAC': 'D', 'GGC': 'G',
+                     'GTA': 'V', 'GCA': 'A', 'GAA': 'E', 'GGA': 'G',
+                     'GTG': 'V', 'GCG': 'A', 'GAG': 'E', 'GGG': 'G'
+                     }
+
+#prepare the dictio of translation_table codons
+degen_dict = {}
+for codons in translation_table:
+    for codon in codons:
+        degen_dict[codon] = codons
+
+#query_codons
+max_seq = len(seq)
+query_codons = [seq[i:i+3] for i in range(0, max_seq, 3)]
+
+#prepare dictio of counts:
+counts = defaultdict(int)
+for codon in query_codons:
+    counts[codon] +=1
+
+#actual calculation of frequency to answer Task 2b
+data = {}
+for codon in query_codons:
+    if codon in  degen_dict:
+        totals = sum(counts[deg] for deg in degen_dict[codon])
+        frecuency = float(counts[codon]) / totals
+    else:
+        frecuency = 1.00
+
+    data[codon] = frecuency
+
+#print results
+for codon, frecuency in data.iteritems():
+    print "%s  -> %.2f" %(codon, frecuency)
+
+##################################################################################################
+
+from itertools import product, combinations
+from collections import Counter
+
+translation_table = {'TTT': 'F', 'TCT': 'S', 'TAT': 'Y', 'TGT': 'C',
+                     'TTC': 'F', 'TCC': 'S', 'TAC': 'Y', 'TGC': 'C',
+                     'TTA': 'L', 'TCA': 'S', 'TAA': '*', 'TGA': '*',
+                     'TTG': 'L', 'TCG': 'S', 'TAG': '*', 'TGG': 'W',
+                     'CTT': 'L', 'CCT': 'P', 'CAT': 'H', 'CGT': 'R',
+                     'CTC': 'L', 'CCC': 'P', 'CAC': 'H', 'CGC': 'R',
+                     'CTA': 'L', 'CCA': 'P', 'CAA': 'Q', 'CGA': 'R',
+                     'CTG': 'L', 'CCG': 'P', 'CAG': 'Q', 'CGG': 'R',
+                     'ATT': 'I', 'ACT': 'T', 'AAT': 'N', 'AGT': 'S',
+                     'ATC': 'I', 'ACC': 'T', 'AAC': 'N', 'AGC': 'S',
+                     'ATA': 'I', 'ACA': 'T', 'AAA': 'K', 'AGA': 'R',
+                     'ATG': 'M', 'ACG': 'T', 'AAG': 'K', 'AGG': 'R',
+                     'GTT': 'V', 'GCT': 'A', 'GAT': 'D', 'GGT': 'G',
+                     'GTC': 'V', 'GCC': 'A', 'GAC': 'D', 'GGC': 'G',
+                     'GTA': 'V', 'GCA': 'A', 'GAA': 'E', 'GGA': 'G',
+                     'GTG': 'V', 'GCG': 'A', 'GAG': 'E', 'GGG': 'G'
+                     }
+
+# nomenclature for degenerate codons
+expanded_code = {'A': ['A'], 'C': ['C'], 'G': ['G'], 'T': ['T'],
+                 'W': ['A', 'T'], 'S': ['C', 'G'], 'M': ['A', 'C'], 'K': ['G', 'T'], 'R': ['A', 'G'], 'Y': ['C', 'T'],
+                 'B': ['C', 'G', 'T'], 'D': ['A', 'G', 'T'], 'H': ['A', 'C', 'T'], 'V': ['A', 'C', 'G'],
+                 'N': ['A', 'C', 'G', 'T']
+                 }
+
+# helpful for validating input
+valid_nucleotides = 'ACGTWSMKRYBDHVN'
+valid_aa = 'GAVLIMFWPSTCYNQDEKRH*'
+
+
+def truncate_list_of_amino_acids(amino_acids):
+    """
+    :param amino_acids: set
+        the amino acids we want to code for, i.e. {'A','I','V'}
+    :rtype: set
+        the set of sets of amino acids that can be coded with 100% efficiency, i.e. {frozenset({'V', 'A'}), frozenset({'V', 'I'})}
+    """
+
+    pass
+
+
+if __name__ == "__main__":
+    # using sets instead of lists throughout the code since the oder doesn't matter and all items should be unique
+    assert get_codon_for_amino_acids({'A', 'I', 'V'}) == ({'RYA', 'RYH', 'RYC', 'RYW', 'RYM', 'RYY', 'RYT'}, 0.75)
+    assert get_codon_for_amino_acids({'M', 'F'}) == ({'WTS', 'WTK', "WTB"}, 0.5)
+
+    # "frozenset" here since this seems to be the only way to get a set of sets - see https://stackoverflow.com/questions/5931291/how-can-i-create-a-set-of-sets-in-python
+    assert truncate_list_of_amino_acids({'A', 'V', 'I'}) == {frozenset({'V', 'A'}), frozenset({'V', 'I'})}
+
+##################################################################################################
