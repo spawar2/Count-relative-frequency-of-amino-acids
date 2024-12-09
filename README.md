@@ -1,4 +1,4 @@
-# Count-relative-frequency-of-amino-acids. December, 9, 2024.
+# Count-relative-frequency-of-amino-acids. Date created/updated: December, 9, 2024.
 [Python: itertools, product, combinations, Counter].
 Yale University, School of Medicine, Department of Genetics, Yale Center for Genome Analysis (YCGA), Connecticut,  New Haven, United States of America (USA).
 https://campuspress.yale.edu/shrikantpawar/
