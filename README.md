@@ -2,6 +2,7 @@
 [Python: itertools, product, combinations, Counter].
 Yale University, School of Medicine, Department of Genetics, Yale Center for Genome Analysis (YCGA), Connecticut,  New Haven, United States of America (USA).
 https://campuspress.yale.edu/shrikantpawar/
+![download (1)](https://github.com/user-attachments/assets/a8e57b1c-da9c-4102-bea9-640798f4e409)
 
 Pawar-assignment.py.txt: get codon for amino acids, create translation_table, prepare the dictionary of translation_table codons, query_codons, prepare dictionary of counts, calculation of frequency, print results.
 selected function(expanded_code, truncate_list_of_amino_acid, defaultdict, get_codon_for_amino_acids, truncate_list_of_amino_acids).
